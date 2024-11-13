@@ -66,20 +66,25 @@ class Automovel
         }
     }
 
-    public function atualizaAutomovel($id_automovel, $novoAutomovel)
+    public function atualizaAutomovel($id_automovel, $novoAutomovel, $preco_automovel)
     {
         try {
-            $sql = "UPDATE automovel SET automovel = ? WHERE id_automovel = ?";
-
+            $sql = "UPDATE automovel SET modelo_automovel = ?, preco_automovel = ? WHERE id_automovel = ?";
+    
             $stmt = Conexao::getConexao()->prepare($sql);
+    
             $stmt->bindValue(1, $novoAutomovel);
-            $stmt->bindValue(2, $id_automovel);
-
+            $stmt->bindValue(2, $preco_automovel);
+            $stmt->bindValue(3, $id_automovel);
+        
             $stmt->execute();
-
+    
             return ($stmt->rowCount() > 0) ? 'Automóvel Atualizado' : 'Nenhum automóvel encontrado para atualizar';
         } catch (Exception $ex) {
             return 'Erro ao atualizar automóvel: ' . $ex->getMessage();
         }
     }
+    
+    
+    
 }

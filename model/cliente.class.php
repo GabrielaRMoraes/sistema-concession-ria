@@ -69,12 +69,13 @@ class Cliente
     public function atualizaCliente($id_cliente, $novoCliente)
     {
         try {
-            $sql = "UPDATE cliente SET cliente = ? WHERE id_cliente = ?";
+            $sql = "UPDATE cliente SET nome_cliente = ? WHERE id_cliente = ?";
 
             $stmt = Conexao::getConexao()->prepare($sql);
+    
             $stmt->bindValue(1, $novoCliente);
             $stmt->bindValue(2, $id_cliente);
-
+    
             $stmt->execute();
 
             return ($stmt->rowCount() > 0) ? 'Cliente Atualizado' : 'Nenhum cliente encontrado para atualizar';
@@ -82,4 +83,5 @@ class Cliente
             return 'Erro ao atualizar cliente: ' . $ex->getMessage();
         }
     }
+    
 }
